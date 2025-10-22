@@ -2,7 +2,9 @@
 title: "Practical 3 - GIS and Risk: Flooding Impacts on Infrastructure (Weeks 5-6)"
 author: "Zi Ye"
 date: "2025-10-22"
-output: html_document
+output:
+  html_document:
+    self_contained: true
 ---
 
 ```{r setup, include=FALSE}
