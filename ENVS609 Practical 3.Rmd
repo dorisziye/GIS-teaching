@@ -1,7 +1,7 @@
 ---
 title: "Practical 3 - GIS and Risk: Flooding Impacts on Infrastructure (Weeks 5-6)"
 author: "Zi Ye"
-date: "2025-10-22"
+date: "`r format(Sys.Date(), '%Y-%m-%d')`"
 output:
   html_document:
     self_contained: true
@@ -11,11 +11,11 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## 1 Learning Aims and Objectives
+## 1 Learning aims and objectives
 
-Where human settlements coalesce in areas proximal to water bodies there will be a risk of flooding. Over time such risks have been mitigated through a variety of strategies including river management or defence technologies. However, during periods of especially heavy precipitation or high tides, water can inundate areas that are not typically submerged. The Environment Agency (EA) have computer models that estimate this risk, and provide a series of outputs that rate areas based upon their likelihood of flooding, and whether or not these areas pose a risk for insurance.
+Where human settlements coalesce in areas proximal to water bodies, there will be a risk of flooding. Over time, such risks have been mitigated through a variety of strategies, including river management and defence technologies. However, during periods of especially heavy precipitation or high tides, water can inundate areas that are not typically submerged. The Environment Agency (EA) has computer models that estimate this risk and provides a series of outputs that rate areas according to their likelihood of flooding and whether or not these areas pose a risk for insurance.
 
-The objective of this practical is to explore the geography of flooding and the associated risk this places on built infrastructure. You will be taking on the role of an environmental GIS consultant who is tasked with creating an assessment of key aspects of infrastructure that may be at risk from flooding, and in particular, exploring the effect this may have on building insurance premiums. The case study area for this practical is the Local Authority District of Oxford which is an area that has experienced flooding historically, with a large portion of central Oxford in proximity to a number of rivers.
+The objective of this practical is to explore the geography of flooding and the associated risk it places on built infrastructure. You will take on the role of an environmental GIS consultant tasked with creating an assessment of key aspects of infrastructure that may be at risk from flooding, and in particular, exploring the effect this may have on building insurance premiums. The case study area for this practical is the Local Authority District of Oxford, which is an area that has experienced flooding historically, with a large portion of central Oxford in proximity to a number of rivers.
 
 In addition to reinforcing learning from earlier practicals, you will also be developing the following GIS skills and understanding:
 
@@ -33,25 +33,25 @@ In addition to reinforcing learning from earlier practicals, you will also be de
 
 ### 2.1 Get your data
 
--   In your “M:” drive create a new folder and name it ‘Practical 3 - Flood Risk’ - this is your “working directory”
+-   In your “M:” drive, create a new folder and name it “Practical 3 - Flood Risk”. This is your working directory.
 
--   Go to Canvas and download `Practical3_Data` to your working directory
+-   Go to Canvas and download `Practical3_Data` to your working directory.
 
--   Unzip the files to your working directory
+-   Unzip the files to your working directory.
 
--   Create another folder within your working directory (name it: Output) - you will save your results and mapping outputs here
+-   Create another folder within your working directory (name it: `Output`). You will save your results and mapping outputs here.
 
--   Open the ‘`RoFRS_England_Product Description Files`’ from the ‘`Flood Risk`’ pack and familiarise yourself with the document and answer the questions:\
+-   Open the `RoFRS_England_Product Description Files` from the `Flood Risk` pack and familiarise yourself with the document and answer the questions:\
     **- What are the four categories of flood risk likelihood?**\
-    **- What are the key strengths and limitations of the model used by The Environment Agency?**
+    **- What are the key strengths and limitations of the model used by the Environment Agency?**
 
 ### 2.2 Display data
 
-In the initial part of this practical we will use both vector and raster data. First, we will explore `Flood Risk` data for the city of Oxford. These data form part of a wider flood risk assessment that is completed for the entirety of England. It assesses the chance of flooding from rivers and the sea presented in categories taking account of flood defences and the condition that they are in. Then we will use raster elevation data the so-called Digital Elevation Model (DEM) or Digital Terrain Model (DTM) from `Oxford_DTM` pack. It is supplied as a set of 50m gridded digital terrain model and 10m contours and spot heights.
+In the initial part of this practical, we will use both vector and raster data. First, we will explore `Flood Risk` data for the city of Oxford. These data form part of a wider flood risk assessment completed for the entirety of England. It assesses the chance of flooding from rivers and the sea, presented in categories that take account of flood defences and their condition. We will then use raster elevation data, the so-called Digital Elevation Model (DEM) or Digital Terrain Model (DTM), from the `Oxford_DTM` pack. It is supplied as a set of 50 m gridded digital terrain models, together with 10 m contours and spot heights.
 
-There are two GIS files available in the `Flood Risk` Pack. The first - `Oxford catchment` (a polygon shapefile) - shows the extent of flood risk areas in Oxford City and the second - `Oxford Postcode` (a point shapefile) - provides an estimate of how many properties are within each of the four flood risk categories, disaggregated by postcode unit.
+There are two GIS files available in the `Flood Risk` pack. The first, `Oxford catchment` (a polygon shapefile), shows the extent of flood risk areas in Oxford City, and the second, `Oxford Postcode` (a point shapefile), provides an estimate of how many properties are within each of the four flood risk categories, disaggregated by postcode unit.
 
-As such, we will display these shapefiles alongside raster elevation data in QGIS, and then perform an assessment of the likelihood of flooding. Follow the steps below:
+As such, we will display these shapefiles alongside raster elevation data in QGIS and then perform an assessment of the likelihood of flooding. Follow the steps below:
 
 -   Open QGIS
 
@@ -67,90 +67,91 @@ As such, we will display these shapefiles alongside raster elevation data in QGI
 
 -   Perhaps an easier way of adding data to QGIS is simply by dragging and dropping a shapefile onto the map interface (referred to as " Layers Panel in QGIS or Table of Contents in ArcGIS")
 
--   Save the map to your directory by Clicking **Project**, **Save as**; Name it: `Flood Risk`
+-   Save the map to your directory by clicking **Project** > **Save As**; name it `Flood Risk`
 
 -   By now your map should look something like the one below: 
 
     ![](images/clipboard-1942168662.png)
 
-The next stage is to display the \`Flood Risk' layer, highlighting the likelihood of flooding. In order to do so, you need to familiarise yourself with the associated database: an **Attribute Table** and the metadata: ‘RoFRS_England_Product Description Files’ and then decide which field would be most sensible to map. Follow the steps below if unsure how to proceed:
+The next stage is to display the `Flood Risk` layer, highlighting the likelihood of flooding. In order to do so, you need to familiarise yourself with the associated database: the **Attribute Table** and the metadata file, `RoFRS_England_Product Description Files`, and then decide which field would be most sensible to map. Follow the steps below if you are unsure how to proceed:
 
--   Right click on the `Flood Risk` layer and select **Open Attribute Table**
+-   Right-click on the `Flood Risk` layer and select **Open Attribute Table**
 
--   A lookup for the column names can be found in the pdf file called “RoFRS_England_Product_Description”.
+-   A lookup for the column names can be found in the PDF file called `RoFRS_England_Product_Description`.
 
 -   Decide which column would be the most appropriate to display the likelihood of flooding in Oxford.
 
--   Yes, we need to use the “`PROB_4BAND`” field, close the **Attribute Table**
+-   Yes, we need to use the `PROB_4BAND` field. Close the **Attribute Table**.
 
--   Right click on the `Flood Risk` layer and go to its **Properties**
+-   Right-click on the `Flood Risk` layer and go to its **Properties**
 
--   Within the **Symbology** Tab select **Categorized** from the drop down menu
+-   Within the **Symbology** tab, select **Categorized** from the drop-down menu
 
--   Then, from the **Column** dropdown menu choose “prob_4band” and press the **Classify** button
+-   Then, from the **Column** drop-down menu, choose `prob_4band` and press the **Classify** button
 
--   You should see now four classes in the window ‘High’, ‘Medium’, ‘Low’ and ‘Very low’ (if there is an empty class, delete it by highlighting it and pressing **Delete** button)
+-   You should now see four classes in the window: `High`, `Medium`, `Low`, and `Very low` (if there is an empty class, delete it by highlighting it and pressing the **Delete** button)
 
--   Next, go to **Color ramp** and choose one of the gradient colour schemes e.g. ‘OrRd’ or ‘Blues’. Make sure to click the **Invert Color Ramp** box at the top of the Color ramp drop down menu.
+-   Next, go to **Color ramp** and choose one of the gradient colour schemes, for example `OrRd` or `Blues`. Make sure to click the **Invert Color Ramp** box at the top of the color ramp drop-down menu.
 
--   Click Apply-OK\
-    ![](images/clipboard-3853975427.png){width="620"}
+-   Click **Apply** and then **OK**
 
-So by now, we have displayed the `Flood Risk` layer by the likelihood of flooding, with the dark red colour being associated with the highest risk and pale yellow with the lowest. We can however improve the map slightly with some additional adjustment to the layer style, and then we will be ready for further analysis.
+    ![](images/fig2.png){width="620"}
 
--   Go to **Properties \> Symbology** of the `Flood Risk` layer and select the **Symbol** colour button from the drop down menu
+So, by now, we have displayed the `Flood Risk` layer by the likelihood of flooding, with dark red associated with the highest risk and pale yellow with the lowest. We can, however, improve the map slightly with some additional adjustment to the layer style before moving on to further analysis.
 
--   Adjust the **Opacity** to 70% and remove the black borders by highlighting **Simple fill** and choosing **No Line** as your **Stroke style**
+-   Go to **Properties > Symbology** of the `Flood Risk` layer and select the **Symbol** colour button from the drop-down menu
 
--   Click OK - Apply - OK.
+-   Adjust the **Opacity** to 70% and remove the black borders by highlighting **Simple fill** and choosing **No Line** as your **Stroke style**
+
+-   Click **OK** and then **Apply**.
 
     ![](images/clipboard-2579458755.png){width="444"}
 
--   Now, using the same process try to style the point symbol for `Oxford Postcode`. Set the point size to **1.5**, colour to **green with white outline** and transparency/opacity at **75%**
+-   Now, using the same process, try to style the point symbol for `Oxford Postcode`. Set the point size to **1.5**, the colour to **green with white outline**, and the transparency/opacity to **75%**.
 
--   Lastly, add some more layers from the ‘Oxford OS_data’ folder to your map. These should be: `ImportantBuilding`, `Railway Track`, `Road` and `SurfaceWater_Area`
+-   Lastly, add some more layers from the `Oxford OS_data` folder to your map. These should be: `ImportantBuilding`, `Railway Track`, `Road`, and `SurfaceWater_Area`.
 
 -   Change the default symbols as you like, aiming at producing a good and informative map
 
 When you’re finished with this task, your map should look something like the one below: 
 
-![](images/clipboard-3288514961.png)
+![](images/fig4.png)
 
 This map shows flood risk areas in Oxford, and highlights how the main risk of flooding to the city can be associated with out of bank spills from the River Cherwell and Thames and their tributaries. Furthermore, it can be noted that the flood risk area is relatively large and there is a high probability of some important buildings, roads and railway tracks being impacted.
 
 ### 2.3 Raster data (DEM)
 
-It would also be useful to see how does the elevation model maps onto the flood risk zones. Typically, flood simulation models require information on the topography of the river channel and the adjacent floodplain. In the case of urban floodplains, the configuration and location of streets, buildings and other urban infrastructure is also required. So in this part of the practical we will explore various aspects of raster data based on DTM including displaying it, rendering the image, merging tiles, hillshades and conversions. We will also create a rough estimate of the extent of the floodplain based on the elevation data (the Environment Agency estimations are more accurate as they involve complex modelling so consider the following analysis as a GIS exercise..).
+It would also be useful to see how the elevation model maps onto the flood risk zones. Typically, flood simulation models require information on the topography of the river channel and the adjacent floodplain. In the case of urban floodplains, the configuration and location of streets, buildings, and other urban infrastructure are also required. So, in this part of the practical, we will explore various aspects of raster data based on DTM, including displaying it, rendering the image, merging tiles, hillshades, and conversions. We will also create a rough estimate of the extent of the floodplain based on the elevation data (the Environment Agency estimations are more accurate, as they involve complex modelling; therefore, consider the following analysis as a GIS exercise).
 
 #### 2.3.1 Loading raster files
 
--   Go to your working directory and unzip the `Oxford_DTM` pack
+-   Go to your working directory and unzip the `Oxford_DTM` pack.
 
 -   Click on the **Add Raster Layer** button
 
 -   Navigate to your *working directory \> Oxford_DTM \> sp*, select all files with .asc extension, drag and drop them into the **Layers Panel** (this may take a couple of minutes)
 
--   Group all raster layers, call them `Raster`
+-   Group all raster layers and call them `Raster`.
 
--   Explore the raster data, comment on the extent, resolution, tile size etc.
+-   Explore the raster data and comment on the extent, resolution, tile size, etc.
 
--   Play with the colours and other settings under the **Properties \> Symbology** tab
+-   Play with the colours and other settings under the **Properties > Symbology** tab.
 
 #### 2.3.2 Hillshade
 
-A hillshade is a grayscale 3D representation of the surface, with the sun’s relative position taken into account for shading the image. This function uses the altitude and azimuth properties to specify the sun’s position. To add vertical exaggeration for visual effect we use Z factor.
+A hillshade is a grayscale 3D representation of the surface, with the sun’s relative position taken into account for shading the image. This function uses the altitude and azimuth properties to specify the sun’s position. To add vertical exaggeration for visual effect, we use the z factor.
 
--   Identify the SP50SW tile and turn off all the remaining raster tiles
+-   Identify the SP50SW tile and turn off all the remaining raster tiles.
 
--   Go to **Raster \> Analysis \> Hillshade…** (if the **Analysis** is not available go to **Plugins** and enable it)
+-   Go to **Raster > Analysis > Hillshade…** (if the **Analysis** option is not available, go to **Plugins** and enable it).
 
--   Select the SP50SW tile as your **Input layer**
+-   Select the SP50SW tile as your **Input layer**.
 
--   Keep the default value (1.0) for z factor
+-   Keep the default value (1.0) for the z factor.
 
--   Save the file under the Hillshade heading to your Output folder and name the file appropriately (e.g. SP50SW Hillshade)
+-   Save the file under the Hillshade heading in your Output folder and name the file appropriately (e.g. `SP50SW_Hillshade`).
 
--   Hit **Run**, the new `Hillshade layer` should be added to the **Layers Panel** automatically
+-   Click **Apply**. The new `Hillshade` layer should be added to the **Layers Panel** automatically.
 
 -   What is the difference between the new layer and the original tile?
 
@@ -173,9 +174,9 @@ As you probably have noticed, the raster DTM data comes in small tiles. It isn�
 
 -   Next create a **Hillshade** of the **Oxford_DEM** file
 
--   Your output should look something like the one below: 
+-   Your output should look something like the one below. You may need to play with the brightness and contrast of the layer properties to get a good visualisation of the hill shade. 
 
-    ![](images/clipboard-2748159756.png)
+    ![](images/fig6.png)
 
 -   Adjust the transparency to 50% in the **Properties \> Transparency** tab
 
@@ -191,15 +192,17 @@ As you probably have noticed, the raster DTM data comes in small tiles. It isn�
 
 #### 2.3.4 Clip raster
 
-In order to map only the area you need, the layer has to be clipped to an extent of a given vector layer - in our case the Oxford Borough boundaries. (Use the OS boundary file downloaded in Practical 2, section 2.5.3 to extract Oxford boundaries; <https://osdatahub.os.uk/downloads/open/BoundaryLine>) You may need to play with the brightness and contrast of the layer properties to get a good visualisation of the hill shade.
+In order to map only the area you need, the layer has to be clipped to an extent of a given vector layer - in our case the Oxford Borough boundaries. (Use the OS boundary file downloaded in Practical 2, section 2.5.3 to extract Oxford boundaries; <https://osdatahub.os.uk/downloads/open/BoundaryLine>) 
 
--   Go to **Raster \> Extraction \> Clip Raster by Mask Layer** and clip the **Oxford_DEM** or the **Hillshade** layer to the extent of Oxford borough district
+-   Go to **Raster \> Extraction \> Clip Raster by Mask Layer** and clip the **Oxford_DEM** or the **Hillshade** layer to the extent of Oxford borough district
 
 -   You should be able to do it by yourself. If you’re experiencing any difficulties please go back to Practical 2, section 3.2, where the instructions on how to do it are provided
 
--   Compare your output against the one below, if your output is a square one, probably because you need to set the “Assign a specified nodata value to output bands [optional]” as -9999 and try the **Clip Raster by Mask Layer** again:
+-   Compare your output against the one below. If your output is square, this is probably because you need to set the “Assign a specified nodata value to output bands [optional]” to -9999 and try the **Clip Raster by Mask Layer** again:
 
-    ![](images/clipboard-1783026682.png)
+    The example below shows the `SurfaceWater_Area` layer also clipped to the extent of Oxford borough and overlaid with the hillshade to improve the visualisation of the flood risk areas.
+
+    ![](images/fig7.png)
 
 #### 2.3.5 Raster conversions
 
@@ -213,7 +216,7 @@ Often in GIS we need to convert data from vector to raster and from raster to ve
 
 -   Play with the colours and classification methods (use 5, 8 and 10 classes) until you have similar output to the one below: 
 
-    ![](images/clipboard-2033704598.png)
+    ![](images/fig8.png)
 
 As you can see, this is very useful for visualisation purposes, the green colours are associated with the lower altitude and yellow and orange colours with higher altitude. The range varies from 50m to 194m. The areas which are more prone to flooding are those towards the lower end of this range. So now, let’s highlight the areas that are most likely to be flooded (based solely on elevation). This can be done easily by applying different colour scheme to those areas, for instance blue.
 
@@ -247,11 +250,11 @@ Mask
 
 ### 3.4 Analysis
 
-By carrying out a GIS analysis we are able to provide some valuable insights on the exposure of people or protected buildings to flood risk. Also having more specific information such as what is the size of the potential flood risk area, what is the length of the potentially affected roads and railway tracks or how many residential properties are at high/medium/low risk may be useful for local authorities. Insurance companies often use a property-level GIS analysis to assess your property’s flooding risk and adjust the premium accordingly.
+By carrying out a GIS analysis, we are able to provide some valuable insights into the exposure of people or protected buildings to flood risk. Having more specific information, such as the size of the potential flood risk area, the length of the potentially affected roads and railway tracks, or how many residential properties are at high, medium, or low risk, may also be useful for local authorities. Insurance companies often use a property-level GIS analysis to assess your property’s flooding risk and adjust the premium accordingly.
 
-In this practical you will use a few simple GIS analysis techniques to provide empirical evidence for the Borough of Oxford. Firstly, you need to display all the roads, railway tracks and important buildings that are within areas at risk of being flooded; and secondly, you will need to calculate the size of the flood risk area and length of the affected roads and railway tracks.
+In this practical, you will use a few simple GIS analysis techniques to provide empirical evidence for the Borough of Oxford. Firstly, you need to display all the roads, railway tracks, and important buildings that are within areas at risk of being flooded. Secondly, you will need to calculate the size of the flood risk area and the length of the affected roads and railway tracks.
 
-This will first involve you selecting the features that are near areas of high flood risk. This is typically done using a function called **Select by Location**, where features in one layer are selected based on a spatial relationship to features in another layer. An alternative approach is to use **Geoprocessing Tools** such as **Clip**, **Union**, **Intersect** and **Dissolve**. You already have used most of these tools so it should be really easy to follow the exercise below.
+This will first involve selecting the features that are near areas of high flood risk. This is typically done using a function called **Select by Location**, where features in one layer are selected based on a spatial relationship to features in another layer. An alternative approach is to use **Geoprocessing Tools** such as **Clip**, **Union**, **Intersect**, and **Dissolve**. You have already used most of these tools, so it should be relatively easy to follow the exercise below.
 
 #### 3.4.1 Select by Location
 
@@ -267,7 +270,7 @@ This will first involve you selecting the features that are near areas of high f
 
 -   Now save the selected features. Right click *Railway Track \> Export \> Save Selected Features As…* Save the new file in your Output folder and name `Rail_Clip`
 
--   Then repeat for the Road, Important Building and Oxford Postcode layers; name them “`Road_Clip`”, “`ImpBuilding_Clip`” and “`Postcode_Clip`” respectively.
+-   Then repeat for the Road, Important Building, and Oxford Postcode layers; name them “`Road_Clip`”, “`ImpBuilding_Clip`”, and “`Postcode_Clip`” respectively.
 
 #### 3.4.2 Clip
 
@@ -285,7 +288,7 @@ An **alternative** method for saving the railway tracks within the flood risk zo
 
 -   Render the image using the same steps as previously
 
--   Next, clip the **Road** and **Important Building** layers to the Flood Risk extent; name them “`Road_clip`” and “`ImpBuilding_Clip`” respectively
+-   Next, clip the **Road** and **Important Building** layers to the `Flood Risk` extent; name them “`Road_Clip`” and “`ImpBuilding_Clip`” respectively.
 
 -   Lastly, clip your Oxford Postcode layer
 
@@ -294,6 +297,8 @@ Once all the shapefiles have been saved as permanent layers, you can calculate s
 -   Go to **Vector menu \> Analysis Tools \> Basic statistics for fields** and obtain the statistics for Rail_Clip. Answer the questions below: o Is the extent of the selected features corresponding with the Flood Risk layer? o What is the length of the railway tracks potentially affected by the flood risk?
 
 -   Repeat for the `Road_Clip` and then `ImpBuilding_Clip` layers
+
+**Think: what are the differences between the two methods (Select by Location and Clip)? Which one would you prefer to use and why?**
 
 #### 3.4.3 Dissolve
 
@@ -311,7 +316,7 @@ Yes, there are 1090 polygons; however ideally we’d like to have it as four pol
 
 -   Click … next to **Dissolve field(s)** and tick ‘prob_4band’ as your **Dissolve field**. Click OK
 
--   Save the output to your Output folder; name it `FRisk_dissolved`
+-   Save the output to your Output folder; name it `FRisk_Dissolved`
 
 -   Click OK. A new layer should be automatically added to the **Layers Panel**
 
@@ -327,7 +332,7 @@ Polygon area and line features length can be calculated by a tool called **Fiel
 
 -   Go to **Project \> Properties \> General** and change the units for area measurement to Hectares
 
--   Open the **Attribute table** of the `FRisk_dissolved` layer
+-   Open the **Attribute table** of the `FRisk_Dissolved` layer
 
 -   Click on the **Toggle editing mode** button and then **Field calculator**
 
@@ -349,7 +354,7 @@ Polygon area and line features length can be calculated by a tool called **Fiel
 
 Now we need to calculate total length of the roads that are within the flood risk area. This is done in a similar way as calculating an ‘area’. Give it a go; but in case you get stuck, have a look at the steps below:
 
--   Open **Attribute table** of the `Road_clip` layer, select **Toggle** mode and open the **Field calculator**
+-   Open the **Attribute table** of the `Road_Clip` layer, select **Toggle** mode, and open the **Field Calculator**
 
 -   Make sure the **Create a new field** box is selected; name the new field *Length* and go to **Functions/Geometry** where you will find the **\$length** function
 
@@ -359,13 +364,13 @@ In order to get total length of the roads within the flood risk area use the too
 
 -   Click on **Vector** then **Analysis Tools** and choose **Basic statistics for fields**
 
--   In the dialog that appears, specify “`Road_clip`” as the Input Vector layer
+-   In the dialog that appears, specify “`Road_Clip`” as the Input Vector layer
 
 -   Choose ‘Length’ as your **Field to calculate statistics on**
 
 -   Click Run. You should get results similar to these:
 
-    ![](images/clipboard-1911068833.png)
+    ![](images/fig11.png)
 
 -   So the total length of the roads within the flood risk area is 135,460m.
 
@@ -379,7 +384,7 @@ In order to get total length of the roads within the flood risk area use the too
 
 Next, we’ll get the number of ‘Important Buildings’ that are within the flood risk area. In this case we also can use the **Basic statistics for fields** function or we can simply open the **Attribute table** and check how many rows there are. However, if we wanted to know how many Important Buildings are in the ‘High’ risk zone, it may be slightly more tricky. One of the easiest ways of doing it is to use the **Select by Location** tool. Follow the steps below:
 
--   First, select all High flood risk areas by opening the **Attribute table** of the `FRisk_dissolved` layer and then highlighting the corresponding polygon
+-   First, select all High flood risk areas by opening the **Attribute table** of the `FRisk_Dissolved` layer and then highlighting the corresponding polygon.
 
 -   For the purpose of this analysis it is enough to simply select the polygons in the **Attribute table**
 
@@ -387,7 +392,7 @@ Next, we’ll get the number of ‘Important Buildings’ that are within the fl
 
 -   Click on **Vector** then **Research Tools** and choose **Select by Location**
 
--   In the dialog box that appears, specify the `ImpBldg_clip` as the selectable layer and `FRisk_dissolved` as the layer to intersect with
+-   In the dialog box that appears, specify `ImpBuilding_Clip` as the selectable layer and `FRisk_Dissolved` as the layer to intersect with.
 
 -   Make sure that the first and the last options are marked as per picture below:\
     ![](images/clipboard-3615382194.png)
@@ -398,11 +403,11 @@ Next, we’ll get the number of ‘Important Buildings’ that are within the fl
 
 Finally, let’s explore the `Oxford Postcode` data. It would be useful to know how many residential properties there are in each flood risk likelihood category. The easiest way of providing such information is to use two different tools, first we need to select the postcodes within each flood risk band and then use the **Basic Statistics** tool to obtain the required values.
 
--   Go to **Attribute table** of the `Flood Risk` layer or `FRisk_dissolved`
+-   Go to the **Attribute table** of the `Flood Risk` layer or `FRisk_Dissolved`
 
 -   Select all the areas classified as *High* flood risk by creating a simple spatial query (SQL) or selecting the corresponding rows.
 
--   Next, go to the **Select by location** tool and select all the points (`Oxford postcode`) that intersect with the selected features of the `Flood risk` (or `FRisk_dissolved`) layer
+-   Next, go to the **Select by Location** tool and select all the points (`Oxford Postcode`) that intersect with the selected features of the `Flood Risk` (or `FRisk_Dissolved`) layer.
 
 -   In the final step go to the **Basic statistics for Fields** tool and choose `Oxford Postcode` as the **Input vector layer** and *`res_cnt_hi`* as your Target field **Field to calculate statistics on**, hit **OK**
 
@@ -423,19 +428,19 @@ Having done some basic spatial analysis, we need now to create some maps that ca
 As you already know from the previous practicals, in QGIS the **Print Layout** is normally used to create maps. In order to make maps that are easily interpretable there are several things you need to be aware of such as the layout, level of generalisation, clarity of symbols, and perhaps above all, some understanding about what is the purpose of your map.\
 In this practical you will enhance your skills of creating maps by exploring some of the additional options when adding your legend, scale bar, north arrow etc.
 
--   Display the `Flood Risk`, `Road_clip`, `Rail_clip` and `River` layers
+-   Display the `Flood Risk`, `Road_Clip`, `Rail_Clip`, and `River` layers.
 
--   Rename `Road_clip` layer to `Roads at risk` and `Rail_clip` to `Railway Track at Risk`
+-   Rename the `Road_Clip` layer to `Roads at Risk` and the `Rail_Clip` layer to `Railway Track at Risk`.
 
 -   Open **Project \> New Project Layout…;** name it `Flood Risk`
 
 -   A new blank window opens up; Change the orientation to **Portrait** under **Item Properties**
 
--   Go to **Add Item** and choose **Add map**![](images/clipboard-111118918.png)
+-   Go to **Add Item** and choose **Add map**!
 
 -   Adjust the scale to 45000 in the **Item properties** tab (try to experiment with different scales)
 
--   Next, go to **Add Item** and choose **Add legend** ![](images/clipboard-4194253663.png)
+-   Next, go to **Add Item** and choose **Add legend** 
 
 -   By default all items from the `Layers Panel` will be displayed. To remove any unwanted items click on the legend and then go to to **Item properties**
 
@@ -460,9 +465,9 @@ In this practical you will enhance your skills of creating maps by exploring som
 -   Finally, export your map using the **Export as Image** button from **Layout** menu; hopefully it looks something like the one below:\
     ![](images/clipboard-344752500.png){width="467"}
 
-At times we need to create a “zoomed in” portion of the main map which is referred to as an `inset map`. This is normally used to show an overview area such as national or regional extent or extra detail for a particular study area. In this practical we will display those important buildings that are at risk of flooding associated with out of bank spills from the River Cherwell. The city level map does not show these buildings very clearly, so to address this issue we will produce a ‘zoomed in’ map. The easiest way to do it is using a **Zoom in** tool and saving the extent as an image from the **Project** menu. A more professional approach however, involves creating an inset map in the **Print Layout**. Follow the steps below.
+At times, we need to create a “zoomed in” portion of the main map, which is referred to as an `inset map`. This is normally used to show an overview area, such as a national or regional extent, or extra detail for a particular study area. In this practical, we will display those important buildings that are at risk of flooding associated with out-of-bank spills from the River Cherwell. The city-level map does not show these buildings very clearly, so to address this issue, we will produce a ‘zoomed in’ map. The easiest way to do this is to use the **Zoom In** tool and save the extent as an image from the **Project** menu. A more professional approach, however, involves creating an inset map in the **Print Layout**. Follow the steps below.
 
--   Make sure that in the main QGIS interface only the following layers are marked: `Flood risk`, `River`, `surface water` and `Important buildings at risk`. If you wish, you may also use the `Oxford boundary` layer.
+-   Make sure that in the main QGIS interface only the following layers are marked: `Flood Risk`, `River`, `Surface Water`, and `Important Buildings at Risk`. If you wish, you may also use the `Oxford Boundary` layer.
 
 -   Go to your **Print Composer**. Click on the Map (or click Map 1 in the **Items Panel**). In the **Main Properties**, untick and retick the **Draw map canvas items** button to update the map within the **Print Layout**
 
